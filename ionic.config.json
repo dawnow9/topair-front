@@ -1,0 +1,7 @@
+{
+  "name": "topair_front",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "vue"
+}

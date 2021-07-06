@@ -1,11 +1,11 @@
 <template>
   <ion-page>
-    <ion-tabs @ionTabsWillChange="beforeTabChange" @ionTabsDidChange="afterTabChange">
+    <ion-tabs>
       <ion-tab-bar slot="bottom">
-        <ion-tab-button tab="schedule" href="/messages">
+        <ion-tab-button tab="schedule" href="/messages" @click="afterTabChange">
           <ion-icon :icon="chatbubblesOutline"></ion-icon>
           <ion-label>Messages</ion-label>
-          <ion-badge>6</ion-badge>
+          <ion-badge v-show="showBadge()">{{ messagesCount }}</ion-badge>
         </ion-tab-button>
 
         <ion-tab-button tab="speakers" href="/topair">
@@ -23,32 +23,46 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import {computed, defineComponent, ref, watchEffect} from 'vue';
 import {
   IonIcon,
   IonLabel,
   IonPage,
   IonTabBar,
   IonTabButton,
-  IonTabs
+  IonTabs,
+  IonBadge
 } from '@ionic/vue';
 import { chatbubblesOutline, personCircleOutline, balloonOutline } from 'ionicons/icons';
+import {useStore} from "vuex";
 
 export default defineComponent({
-  components: { IonIcon, IonLabel, IonPage, IonTabBar, IonTabButton, IonTabs },
+  components: { IonIcon, IonLabel, IonPage, IonTabBar, IonTabButton, IonTabs, IonBadge },
   setup() {
-    const beforeTabChange = () => {
-      // do something before tab change
+    const store = useStore()
+
+    const messagesCount = ref()
+
+    function showBadge()
+    {
+      return messagesCount.value > 0
     }
+
+    watchEffect(() => {
+      messagesCount.value = store.state.count
+    })
+
     const afterTabChange = () => {
-      // do something after tab change
+      store.commit('clearCount')
     }
+
     return {
       balloonOutline,
       personCircleOutline,
       chatbubblesOutline,
-      beforeTabChange,
-      afterTabChange
+      messagesCount,
+      afterTabChange,
+      showBadge
     }
   }
 });

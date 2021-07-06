@@ -3,7 +3,10 @@ import { RouteRecordRaw } from 'vue-router';
 import Login from "@/views/login/Login.vue";
 import Messages from '../views/Messages.vue'
 import Topair from "@/views/Topair.vue";
+import Chat from "@/views/Chat.vue";
 import Profile from "@/views/Profile.vue";
+import {useStore} from "vuex";
+import Welcome from "@/views/Welcome.vue";
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -25,6 +28,16 @@ const routes: Array<RouteRecordRaw> = [
     path: '/profile',
     name: 'Profile',
     component: Profile
+  },
+  {
+    path: '/chat',
+    name: 'Chat',
+    component: Chat
+  },
+  {
+    path: '/welcome',
+    name: 'Welcome',
+    component: Welcome
   }
 ]
 
@@ -34,7 +47,7 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  console.log('elo')
+  const store = useStore()
   next()
 })
 

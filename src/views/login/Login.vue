@@ -6,7 +6,7 @@
           <div>
             <ion-row>
               <ion-col style="text-align: center">
-                <h1>#TOPAIR</h1>
+                <img src="../../../public/assets/icon/logo.png" alt="logo">
                 <p style="color: red">FOR DEVELOPMENT PURPOSE ONLY</p>
               </ion-col>
             </ion-row>
@@ -61,16 +61,16 @@ export default defineComponent({
     const router = useRouter();
     async function login()
     {
-      const response = await axios.post('http://localhost:3000/auth/login', {
-        username: user.value.username,
-        password: user.value.password
-      })
+      // const response = await axios.post('http://localhost:3000/auth/login', {
+      //   username: user.value.username,
+      //   password: user.value.password
+      // })
 
-      if (response.status == 201)
-      {
-        localStorage.setItem('authKey', response.data.access_token)
-        await router.push('/home')
-      }
+      // if (response.status == 201)
+      // {
+      //   localStorage.setItem('authKey', response.data.access_token)
+        await router.push('/welcome')
+      // }
 
     }
 
